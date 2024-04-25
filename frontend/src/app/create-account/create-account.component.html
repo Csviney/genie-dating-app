@@ -1,0 +1,49 @@
+<div class="main-container">
+    <h1 style="text-align: center;">Create an Account</h1>
+    <form class="form-container">
+      <div class="form-row">
+        <span class="form-label">First Name:</span>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="First Name">
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <span class="form-label">Last Name:</span>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name">
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <span class="form-label">Username:</span>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="Username">
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <span class="form-label">Password:</span>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" placeholder="Password">
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <span class="form-label">Gender:</span>
+        <mat-form-field appearance="fill">
+          <mat-label>Select an option</mat-label>
+          <mat-select>
+            <mat-option value="man">Man</mat-option>
+            <mat-option value="woman">Woman</mat-option>
+            <mat-option value="nonbinary">Nonbinary</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button (click)="onClick()" style="background-color: #ffe9ec;">Create Account</button>
+    </form>
+</div>
