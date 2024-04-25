@@ -1,0 +1,30 @@
+<div class="content-container">
+
+    <img src="/assets/Logo.jpg" alt="Description of the image" class="page-top-image">
+    <mat-card class="widget">
+        <mat-card-title style="text-align: center;">Login or Create an Account</mat-card-title>
+        <mat-card-content>
+        <form class="form-container">
+            <div class="form-row">
+            <span class="form-label">Username:</span>
+            <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="Username">
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+            <span class="form-label">Password:</span>
+            <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Password">
+            </mat-form-field>
+            </div>
+            <div class="button-container">
+                <button mat-raised-button style = "background-color: #ffe9ec;" (click)="onClick()">Login</button>
+                <button mat-raised-button style = "background-color: #ffe9ec;" (click)="onClick2()">Create Account</button>
+                
+            </div>
+        </form>
+        </mat-card-content>
+    </mat-card>
+</div>

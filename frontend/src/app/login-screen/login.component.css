@@ -1,0 +1,101 @@
+:host {
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;      /* Centers vertically */
+    background-color: #ffe9ec; /* Bright pinkish color */
+    min-height: 100vh;
+    width: 100%;
+  }
+  
+  .widget-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .widget {
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    height: 400px;
+  }
+  
+
+/* Styles to ensure proper centering and alignment */
+.mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the content blocks vertically */
+  }
+  
+  .form-row {
+    display: flex;
+    width: 100%; /* Ensures the row takes full width of the container */
+    max-width: 500px; /* Sets a max-width for better control */
+    justify-content: center; /* Centers the label and field horizontally */
+    align-items: center; /* Aligns items vertically in the center */
+    margin-bottom: 20px; /* Adds some space below each form row */
+  }
+  
+  .form-label {
+    margin-right: 8px; /* Adds spacing between label and field */
+    white-space: nowrap; /* Prevents the label from wrapping */
+  }
+  
+  .form-field {
+    flex-grow: 1; /* Allows the form field to take up the rest of the space */
+    width: 100%; /* Ensures the form field expands to fill the container */
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%; /* Ensures the container takes full width */
+    max-width: 500px; /* Matches the form field width */
+    margin-top: 20px; /* Adds spacing above the button container */
+  }
+  
+  .custom-button {
+    background-color: #ffe9ec; /* Your desired color */
+    color: white; /* Text color */
+  }
+  
+  .custom-button:hover {
+    background-color: #ffe9ec; /* Slightly lighter on hover */
+  }
+  
+  .widget {
+    width: 100%;
+    max-width: 600px;
+    margin: auto; /* Centers the card horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Increase space between rows */
+    width: 100%;
+}
+.content-container {
+    display: flex;
+    flex-direction: column;  /* Stacks children vertically */
+    align-items: center;     /* Centers children horizontally */
+    width: 100%;             /* Takes full width of the parent element */
+    display: flex;
+    background-image: url('/assets/Gif Background.gif'); /* Adjust path as needed */
+    background-size: cover;  /* Cover the entire area of the div */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    min-height: 100vh;  
+}
+
+.page-top-image {
+    width: 300px;            /* Adjust size as needed */
+    height: auto;            /* Maintain aspect ratio */
+    margin-bottom: 20px;     /* Space between image and card */
+}
