@@ -12,6 +12,7 @@ class Profile():
     gender: str
     location: str
     preferences: [str]
+    liked_by: [int]
 
     def __init__(self, username: str, password: str, first_name: str, last_name: str, age: int, gender: str, location: str, preferences: [str]):
         self.id = (profiles.all()[-1]['id'] if profiles.all() else 0) + 1
@@ -23,12 +24,13 @@ class Profile():
         self.gender = gender
         self.location = location
         self.preferences = preferences
+        self.liked_by = []
 
     def to_dict(self):
-        return {"id": self.id, "username": self.username, "password": self.password, "first_name": self.first_name, "last_name": self.last_name, "age": self.age, "gender": self.gender,"location": self.location, "preferences": self.preferences}
+        return {"id": self.id, "username": self.username, "password": self.password, "first_name": self.first_name, "last_name": self.last_name, "age": self.age, "gender": self.gender,"location": self.location, "preferences": self.preferences, "liked_by": self.liked_by}
 
 def create(data):
-    profile = Profile(data.get("username"), data.get("password"), data.get("first_name"), data.get("last_name"), data.get("age"), data.get("gender"), data.get("location"), data.get("preferences"))
+    profile = Profile(data.get("username"), data.get("password"), data.get("first_name"), data.get("last_name"), data.get("age"), data.get("gender"), data.get("location"), data.get("preferences") )
     profiles.insert(profile.to_dict())
     return profile.to_dict()
 
@@ -50,6 +52,5 @@ def update(id, data):
     profile_id = Query()
     if profile:
         profiles.update(data, profile_id.id == id)
-        profile = profiles.get(doc_id=id)
         return profile
     return None

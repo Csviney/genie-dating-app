@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from db import db, profiles, matches
 from profile import create, get, delete, update
-from match import create_match, get_match, delete_match
+from match import create_match, get_match, delete_match, update_match
 
 app = FastAPI()
 
@@ -37,7 +37,7 @@ def update_profile(id: int, data: dict):
         return profile
     else:
         raise HTTPException(status_code=404, detail="Profile not found")
-
+    
 @app.post("/matches")
 def create_match_endpoint(data: dict):
     match = create_match(data)
@@ -58,3 +58,12 @@ def delete_match_endpoint(id: int):
         return match
     else:
         raise HTTPException(status_code=404, detail="Match not found")
+    
+@app.put("/matches/{id}")
+def update_match_endpoint(id: int, data: dict):
+    match = update_match(id, data)
+    if match:
+        return match
+    else:
+        raise HTTPException(status_code=404, detail="Match not found")
+    
