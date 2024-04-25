@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component'; // Adjust the path as necessary
+import { HomeComponent } from './home/home.component'; 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent } // This sets HomeComponent as the default route
+  { path: '', component: HomeComponent } 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule] // Export RouterModule so it can be imported elsewhere in your app
+  exports: [RouterModule] 
 })
 export class AppRoutingModule { }
