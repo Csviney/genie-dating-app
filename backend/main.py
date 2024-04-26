@@ -2,8 +2,18 @@ from fastapi import FastAPI, HTTPException
 from db import db, profiles, matches
 from profile import create, get, delete, update
 from match import create_match, get_match, delete_match, update_match
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins=["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 @app.get("/profiles")
 def get_profiles():
@@ -22,6 +32,14 @@ def get_profile(id: int):
     else:
         raise HTTPException(status_code=404, detail="Profile not found")
     
+@app.get("/profiles/{username}")
+def get_profile_by_username(username: str):
+    profile = get_profile_by_username(username)
+    if profile:
+        return profile
+    else:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
 @app.delete("/profiles/{id}")
 def delete_profile(id: int):
     profile = delete(id)
@@ -44,7 +62,7 @@ def create_match_endpoint(data: dict):
     return match
 
 @app.get("/matches/{id}")
-def get_match_endpoing(id: int):
+def get_match_endpoint(id: int):
     match = get_match(id)
     if match:
         return match
