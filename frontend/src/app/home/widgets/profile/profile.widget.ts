@@ -8,6 +8,6 @@ import { MatCardModule } from '@angular/material/card';
     imports: [MatCardModule],
     standalone: true
   })
-  export class Profile {
+  export class ProfileWidget {
 
   }

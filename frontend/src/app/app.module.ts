@@ -2,11 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component'; 
-import { Profile } from './home/widgets/profile/profile.widget';
+import { ProfileWidget } from './home/widgets/profile/profile.widget';
 import { Matches } from './home/widgets/matches/matches.widget';
 import { Gallery } from './home/widgets/gallery/gallery.widget';
 import { LoginComponent } from '/workspaces/genie-dating-app/frontend/src/app/login-screen/login.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,12 +15,13 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     LoginComponent,
     HomeComponent,
     CreateAccountComponent,
-    Profile,
+    ProfileWidget,
     Matches,
     Gallery 
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,10 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormControl } from '@angular/forms';
-import { Profile } from '../home/widgets/profile/profile.widget';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeService } from '../home/home.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Profile } from '../models.module';
 
 @Component({
   selector: 'app-create-account',
@@ -34,16 +34,36 @@ export class CreateAccountComponent {
 
   constructor(private router: Router, private formBuilder: FormBuilder, private homeService: HomeService) {}
 
-  onClick(){
+  onClick() {
     if (this.accountForm.valid) {
-      console.log('Form Values:', this.accountForm.value);
-    } else {
-      console.log('Form is not valid');
-    }
-    this.homeService.create(this.accountForm.value).subscribe();
-    this.router.navigate(['/home'])
+        const formValue = this.accountForm.value;
 
-  }
+        const profileData: Profile = {
+            username: formValue.username || '',
+            password: formValue.password || '',
+            first_name: formValue.first_name || '',
+            last_name: formValue.last_name || '',
+            age: formValue.age ?? 0,
+            gender: formValue.gender as string,
+            preferences: formValue.preferences as string[],
+            liked_by: []
+        };
+
+        this.homeService.create(profileData).subscribe({
+            next: (response) => {
+                console.log('Profile created:', response);
+                this.router.navigate(['/home']);
+            },
+            error: (error) => {
+                console.error('Error creating profile:', error);
+            }
+        });
+    } else {
+        console.log('Form is not valid');
+    }
+}
+
+
 
   onCheckboxChange(e: MatCheckboxChange) {
     const preferences: FormArray = this.accountForm.get('preferences') as FormArray;

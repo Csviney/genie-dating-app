@@ -1,14 +1,14 @@
 export interface Profile {
 
-    id: number;
-    user_name: string;
+    id?: number;
+    username: string;
     password: string;
     first_name: string;
     last_name: string;
-    age: number;
+    age: number | null;
     gender: string;
     preferences: string[] | null;
-    liked_by: string[] | null;
+    liked_by?: string[] | null;
 }
 
 export interface Match {
