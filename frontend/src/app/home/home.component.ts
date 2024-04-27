@@ -17,15 +17,18 @@ import { Profile, Match } from '../models.module';
 })
 export class HomeComponent implements OnInit{
   allProfiles: Profile[] = []
+  loggedinProfile: Profile;
 
-  constructor(private homeService: HomeService){}
+  constructor(private homeService: HomeService){
+    this.loggedinProfile = HomeService.loggedInUser;
+  }
 
   ngOnInit(): void {
     //Load all profiles into home page on load
     this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
       this.allProfiles = profiles;
       console.log(this.allProfiles);
-      console.log('Logged in User: ', HomeService.loggedInUser);
+      console.log('Logged in User: ', this.loggedinProfile);
     });
   }
 }
