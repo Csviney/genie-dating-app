@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit{
     this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
       this.allProfiles = profiles;
       console.log(this.allProfiles);
+      console.log('Logged in User: ', HomeService.loggedInUser);
     });
   }
 }

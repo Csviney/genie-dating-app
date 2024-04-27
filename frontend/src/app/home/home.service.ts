@@ -7,7 +7,9 @@ import { Profile, Match } from '../models.module';
 })
 export class HomeService {
 
-  constructor(protected http: HttpClient) { }
+  public static loggedInUser: any = null;
+
+  constructor(protected http: HttpClient) {}
 
   create(profile: Profile) {
     return this.http.post<Profile>('http://localhost:8000/profiles', profile);

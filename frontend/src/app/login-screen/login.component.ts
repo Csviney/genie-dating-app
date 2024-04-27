@@ -41,6 +41,7 @@ export class LoginComponent {
           next: (profile) => {
             console.log(profile);
             if (profile.password === password) {
+              HomeService.loggedInUser = profile;
               this.router.navigate(['/home']);
             } else {
               this.snackBar.open('Wrong Password', '', {

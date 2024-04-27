@@ -73,6 +73,7 @@ export class CreateAccountComponent {
       this.homeService.create(profileData).subscribe({
         next: (response) => {
           console.log('Profile created:', response);
+          HomeService.loggedInUser = response;
           this.router.navigate(['/home']);
         },
         error: (error) => {
