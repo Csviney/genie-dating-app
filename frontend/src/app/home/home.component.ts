@@ -11,7 +11,7 @@ import { Profile, Match } from '../models.module';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  imports: [MatCardModule, HttpClientModule],
+  imports: [MatCardModule, HttpClientModule, ProfileWidget, Gallery, Matches],
   providers: [HomeService],
   standalone: true
 })
