@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HomeService } from '../home/home.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Profile } from '../models.module';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-account',
@@ -32,36 +33,55 @@ export class CreateAccountComponent {
     preferences: this.formBuilder.array([])
   });
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private homeService: HomeService) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, 
+    public snackBar: MatSnackBar, private homeService: HomeService) {}
 
-  onClick() {
-    if (this.accountForm.valid) {
+    onClick() {
+      if (this.accountForm.valid) {
         const formValue = this.accountForm.value;
-
-        const profileData: Profile = {
-            username: formValue.username || '',
-            password: formValue.password || '',
-            first_name: formValue.first_name || '',
-            last_name: formValue.last_name || '',
-            age: formValue.age ?? 0,
-            gender: formValue.gender as string,
-            preferences: formValue.preferences as string[],
-            liked_by: []
-        };
-
-        this.homeService.create(profileData).subscribe({
-            next: (response) => {
-                console.log('Profile created:', response);
-                this.router.navigate(['/home']);
+        if (formValue.username) {
+          this.homeService.checkUsernameExists(formValue.username).subscribe({
+            next: (exists) => {
+              if (exists) {
+                this.snackBar.open('Username already exists', 'Close', { duration: 3000 });
+              } else {
+                this.createProfile(formValue);
+                this.snackBar.open('Account Created!', 'Close', { duration: 3000 });
+              }
             },
-            error: (error) => {
-                console.error('Error creating profile:', error);
-            }
-        });
-    } else {
+          });
+        } else {
+          console.log('Username is required');
+        }
+      } else {
         console.log('Form is not valid');
+      }
     }
-}
+    
+    createProfile(formValue: any) {
+      const profileData: Profile = {
+        username: formValue.username || '',
+        password: formValue.password || '',
+        first_name: formValue.first_name || '',
+        last_name: formValue.last_name || '',
+        age: formValue.age ?? 0,
+        gender: formValue.gender as string,
+        preferences: formValue.preferences as string[],
+        liked_by: []
+      };
+    
+      this.homeService.create(profileData).subscribe({
+        next: (response) => {
+          console.log('Profile created:', response);
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Error creating profile:', error);
+          this.snackBar.open('Failed to create account', 'Close', { duration: 3000 });
+        }
+      });
+    }
+    
 
 
 

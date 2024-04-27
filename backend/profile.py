@@ -59,3 +59,9 @@ def get_by_username(username):
     if result:
         return result[0]
     return None
+
+def check_existing_username(username, profiles):
+    for i in profiles:
+        if i['username'] == username:
+            return True
+    return False

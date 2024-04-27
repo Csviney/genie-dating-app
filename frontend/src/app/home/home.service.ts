@@ -20,4 +20,8 @@ export class HomeService {
   getProfileByUsername(username: string) {
     return this.http.get<Profile>(`http://localhost:8000/profiles/username/${username}`);
   }
+
+  checkUsernameExists(username: string){
+    return this.http.get<Boolean>(`http://localhost:8000/check-username/${username}`);
+  }
 }

@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from db import db, profiles, matches
-from profile import create, get, delete, update, get_by_username
+from profile import create, get, delete, update, get_by_username, check_existing_username
 from match import create_match, get_match, delete_match, update_match
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -40,6 +40,10 @@ def get_profile_by_username(username: str):
     else:
         raise HTTPException(status_code=404, detail="Profile not found")
 
+@app.get("/check-username/{username}")
+def existing_username(username: str):
+    profile = profiles.all()
+    return check_existing_username(username, profile)
 
 @app.delete("/profiles/{id}")
 def delete_profile(id: int):
