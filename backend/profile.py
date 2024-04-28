@@ -53,6 +53,14 @@ def update(id, data):
         return profile
     return None
 
+def update_by_username(username, data):
+    User = Query()
+    result = profiles.search(User.username == username)
+    if result:
+        profiles.update(data, User.username == username)
+        return result
+    return None
+
 def get_by_username(username):
     User = Query()
     result = profiles.search(User.username == username)

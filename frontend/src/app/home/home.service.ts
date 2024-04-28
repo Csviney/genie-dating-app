@@ -26,4 +26,8 @@ export class HomeService {
   checkUsernameExists(username: string){
     return this.http.get<Boolean>(`http://localhost:8000/check-username/${username}`);
   }
+
+  editProfileByUsername(username: string, profile: Profile) {
+    return this.http.put<Profile>(`http://localhost:8000/profiles/username/${username}`, profile);
+  }
 }

@@ -1,1 +1,12 @@
 <h1>Your Gallery</h1>
+<mat-card class="widget" *ngFor="let p of galleryProfiles; let i = index">
+    <mat-card-title>{{p.first_name}} {{p.last_name}}</mat-card-title>
+    <mat-card-content>
+        <div class="age-container">
+            <span>{{p.age}} years old</span>
+        </div>
+        <div class="button-container">
+            <button mat-raised-button type="button" style="background-color: #ffe9ec;" (click)="onLike(p)">Like!</button>
+        </div>
+    </mat-card-content>
+</mat-card>
