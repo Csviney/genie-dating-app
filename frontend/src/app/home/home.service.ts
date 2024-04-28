@@ -34,4 +34,8 @@ export class HomeService {
   getProfileById(id: number | undefined) {
     return this.http.get<Profile>(`http://localhost:8000/profiles/${id}`)
   }
+
+  editName(id: number | undefined, newName: string){
+    return this.http.put<Match>(`http://localhost:8000/matches/${id}`, { name: newName });
+  }
 }
