@@ -1,1 +1,16 @@
-<h1>Your Matches</h1>
+<div *ngIf="matches.length > 0">
+  <div class="scrollable-container">
+      <div *ngFor="let match of matches" class="match-card">
+          <mat-card>
+              <mat-card-header>
+                  <mat-card-title>{{ match.name }}</mat-card-title>
+                  <mat-card-subtitle>Compatibility: {{ match.compatibility }}</mat-card-subtitle>
+              </mat-card-header>
+          </mat-card>
+      </div>
+  </div>
+</div>
+<div *ngIf="matches.length === 0">
+  <span>No matches found.</span>
+</div>
+

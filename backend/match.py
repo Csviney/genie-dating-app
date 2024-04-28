@@ -71,3 +71,12 @@ def update_match(id, data):
         match = matches.get(doc_id=id)
         return match
     return None
+
+def get_matches_by_profile(profile_id: int):
+    query = Query()
+    matched_records = matches.search((query.profile_1 == profile_id) | (query.profile_2 == profile_id))
+    if matched_records:
+        return matched_records
+    return None
+   
+    

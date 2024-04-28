@@ -26,4 +26,12 @@ export class HomeService {
   checkUsernameExists(username: string){
     return this.http.get<Boolean>(`http://localhost:8000/check-username/${username}`);
   }
+
+  getMatchesofProfile(profile_id: number | undefined){
+    return this.http.get<Match[]>(`http://localhost:8000/matches/profile/${profile_id}`)
+  }
+
+  getProfileById(id: number | undefined) {
+    return this.http.get<Profile>(`http://localhost:8000/profiles/${id}`)
+  }
 }

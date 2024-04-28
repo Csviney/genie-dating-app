@@ -1,0 +1,12 @@
+.match-card {
+    border: 2px solid #ffe9ec;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin: 10px;
+  }
+
+  .scrollable-container {
+    max-height: 310px; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+}
