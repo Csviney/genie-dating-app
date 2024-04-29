@@ -5,6 +5,7 @@ import { HomeService } from '../../home.service';
 import { Profile, Match } from '../../../models.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'gallery',
@@ -18,7 +19,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
     galleryProfiles: Profile[] = []
     loggedinProfile: Profile;
     
-    constructor(private homeService: HomeService){
+    constructor(private homeService: HomeService, public snackBar: MatSnackBar){
       this.loggedinProfile = HomeService.loggedInUser;
     }
     ngOnInit(): void {
@@ -57,6 +58,9 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
         console.log(new_match);
         this.homeService.createMatch(new_match).subscribe();
       }
+      this.snackBar.open('Like sent!', '', {
+        duration: 2000
+      });
       console.log(this.galleryProfiles);
     }
     trackByFn(index: number, item: Profile) {
