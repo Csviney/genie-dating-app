@@ -52,7 +52,7 @@ import { MatInputModule } from '@angular/material/input';
           this.homeService.getMatchesofProfile(this.loggedinProfile.id).subscribe({
               next: (matches) => {
                   this.matches = matches;
-                  console.log('logged ID,', this.loggedinProfile!.id); // Ensure loggedinProfile is not null
+                  console.log('logged ID,', this.loggedinProfile!.id);
                   console.log('matches in observable,', matches);
               },
               error: (error) => {

@@ -6,6 +6,7 @@ import {MatCardModule} from '@angular/material/card';
 import { HomeService } from '../home/home.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Profile, Match } from '../models.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,9 @@ export class HomeComponent implements OnInit{
   allProfiles: Profile[] = []
   loggedinProfile: Profile;
 
-  constructor(private homeService: HomeService){
+  constructor(private homeService: HomeService,
+    private router: Router
+  ){
     this.loggedinProfile = HomeService.loggedInUser;
   }
 
@@ -32,6 +35,13 @@ export class HomeComponent implements OnInit{
     this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
       this.allProfiles = profiles;
       console.log(this.allProfiles);
+    });
+  }
+
+  onClick() {
+    this.router.navigateByUrl('/').then(() => {
+      // Force a reload of the page
+      window.location.reload();
     });
   }
 }
