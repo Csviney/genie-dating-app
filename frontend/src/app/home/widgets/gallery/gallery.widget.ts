@@ -22,22 +22,36 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
       this.loggedinProfile = HomeService.loggedInUser;
     }
     ngOnInit(): void {
-      //Load all profiles into home page on load
-      this.loggedinProfile = HomeService.loggedInUser;
-      this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
-        for (let p of profiles) {
-          if (p.username != this.loggedinProfile.username
-              && this.loggedinProfile.preferences?.includes(p.gender)
-              && !p.liked_by?.includes(this.loggedinProfile.username)
-              // check if not in matches as well
-          ) {
-            this.galleryProfiles.push(p);
-          }
-        }
-        console.log(this.galleryProfiles);
-        console.log('Logged in User: ', this.loggedinProfile);
-      });
+      const profileId = this.homeService.getProfileId();
+      if (profileId) {
+          this.homeService.getProfileById(profileId).subscribe((profile) => {
+              this.loggedinProfile = profile;
+              console.log('GETTING PROFILE FROM SESSION GALLERY:', this.loggedinProfile);
+              this.loadProfiles();
+          });
+      } else {
+          console.error("No profile ID found in session storage");
+      }
     }
+
+    loadProfiles() {
+      if (this.loggedinProfile) {
+          this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
+              for (let p of profiles) {
+                  if (p.username !== this.loggedinProfile!.username
+                      && this.loggedinProfile!.preferences?.includes(p.gender)
+                      && !p.liked_by?.includes(this.loggedinProfile!.username)) {
+                      this.galleryProfiles.push(p);
+                  }
+              }
+              console.log(this.galleryProfiles);
+          });
+      } else {
+          console.error("Logged in profile is not available.");
+      }
+    }
+
+
     onLike(p: Profile) {
       if (!p.liked_by?.includes(this.loggedinProfile.username)) {
         p.liked_by?.push(this.loggedinProfile.username);

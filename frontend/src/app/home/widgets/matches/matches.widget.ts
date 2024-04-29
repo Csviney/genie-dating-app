@@ -30,12 +30,38 @@ import { MatInputModule } from '@angular/material/input';
     }
   
     ngOnInit(): void {
-      this.homeService.getMatchesofProfile(this.loggedinProfile.id).subscribe((matches) => {
-        this.matches = matches;
-        console.log('logged ID,', this.loggedinProfile.id)
-        console.log('matches in observable,', matches)
-      })
+      const profileId = this.homeService.getProfileId();
+      if (profileId) {
+          this.homeService.getProfileById(profileId).subscribe({
+              next: (profile) => {
+                  this.loggedinProfile = profile;
+                  console.log('GETTING PROFILE FROM SESSION MATCHES WIDGET', profile);
+                  this.fetchMatches();
+              },
+              error: (error) => {
+                  console.error('Error fetching profile', error);
+              }
+          });
+      } else {
+          console.error("No profile ID found in session storage");
+      }
     }
+
+    fetchMatches(): void {
+      if (this.loggedinProfile) {
+          this.homeService.getMatchesofProfile(this.loggedinProfile.id).subscribe({
+              next: (matches) => {
+                  this.matches = matches;
+                  console.log('logged ID,', this.loggedinProfile!.id); // Ensure loggedinProfile is not null
+                  console.log('matches in observable,', matches);
+              },
+              error: (error) => {
+                  console.error('Error fetching matches', error);
+              }
+          });
+      }
+    }
+    
     toggleEditMode(matchId: number): void {
       if (this.isEditMode(matchId)) {
         let match = this.matches.find(m => m.id === matchId);

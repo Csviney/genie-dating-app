@@ -25,6 +25,10 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     //Load all profiles into home page on load
+    // this.homeService.getProfileById2(this.homeService.getProfileId()).subscribe((profile) => {
+    //   console.log('GETTING PROFILE FROM SESSION HOME PAGE', profile)
+    //   this.loggedinProfile = profile;
+    // })
     this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
       this.allProfiles = profiles;
       console.log(this.allProfiles);

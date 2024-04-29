@@ -12,7 +12,13 @@ class Match():
     name: str
 
     def __init__(self, profile_1: dict, profile_2: dict):
-        self.id = (matches.all()[-1]['id'] if matches.all() else 0) + 1
+        all_matches = matches.all()
+        if all_matches:
+            last_id = all_matches[-1]['id']
+        else:
+            last_id = 0
+
+        self.id = last_id + 1
         self.profile_1 = profile_1
         self.profile_2 = profile_2
         query = Query()

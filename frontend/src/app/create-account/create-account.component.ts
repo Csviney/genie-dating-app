@@ -74,7 +74,10 @@ export class CreateAccountComponent {
         next: (response) => {
           console.log('Profile created:', response);
           HomeService.loggedInUser = response;
-          this.router.navigate(['/home']);
+          this.router.navigateByUrl('/').then(() => {
+            // Force a reload of the page
+            window.location.reload();
+          });
         },
         error: (error) => {
           console.error('Error creating profile:', error);

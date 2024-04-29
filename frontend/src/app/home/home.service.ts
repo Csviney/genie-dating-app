@@ -46,4 +46,22 @@ export class HomeService {
   createMatch(match: Match) {
     return this.http.post<Match>(`http://localhost:8000/matches`, match);
   }
+
+  setProfileId(profileId: number) {
+    sessionStorage.setItem('profileId', profileId.toString());
+  }
+
+  getProfileId(): number | null {
+    const profileId = sessionStorage.getItem('profileId');
+    return profileId ? parseInt(profileId, 10) : null;
+  }
+
+  logOut() {
+    sessionStorage.removeItem('profileId');
+  }
+
+  getProfileById2(id: number | null) {
+    //Copied method that allows getProfileID() method as an arg.
+    return this.http.get<Profile>(`http://localhost:8000/profiles/${id}`)
+  }
 }
