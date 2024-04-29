@@ -25,7 +25,8 @@
   background-color: transparent !important; 
   color: inherit;                          
   box-shadow: none !important;             
-  border: none !important;           
+  border: none !important;
+  padding-bottom: 15px;           
 }
 
 .icon-color {

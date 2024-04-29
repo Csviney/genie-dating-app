@@ -1,7 +1,7 @@
 <div *ngIf="matches.length > 0">
   <div class="scrollable-container">
     <div *ngFor="let match of matches" class="match-card">
-      <mat-card class="center-content">
+      <mat-card>
         <mat-card-header>
           <div class="mat-card-header-text">
             <ng-container *ngIf="!isEditMode(match.id); else editModeTemplate">
