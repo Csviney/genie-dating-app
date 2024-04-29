@@ -30,4 +30,16 @@ export class HomeService {
   editProfileByUsername(username: string, profile: Profile) {
     return this.http.put<Profile>(`http://localhost:8000/profiles/username/${username}`, profile);
   }
+
+  getMatchesofProfile(profile_id: number | undefined){
+    return this.http.get<Match[]>(`http://localhost:8000/matches/profile/${profile_id}`)
+  }
+
+  getProfileById(id: number | undefined) {
+    return this.http.get<Profile>(`http://localhost:8000/profiles/${id}`)
+  }
+
+  editName(id: number | undefined, newName: string){
+    return this.http.put<Match>(`http://localhost:8000/matches/${id}`, { name: newName });
+  }
 }

@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from db import db, profiles, matches
+
 from profile import create, get, delete, update, get_by_username, check_existing_username, update_by_username
-from match import create_match, get_match, delete_match, update_match
+from match import create_match, get_match, delete_match, update_match, get_matches_by_profile
+
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -98,3 +100,14 @@ def update_match_endpoint(id: int, data: dict):
     else:
         raise HTTPException(status_code=404, detail="Match not found")
     
+@app.get("/matches/profile/{profile_id}")
+def get_matches_from_profile_endpoint(profile_id: int):
+    matches = get_matches_by_profile(profile_id)
+    if matches:
+        return matches
+    else:
+        raise HTTPException(status_code=404, detail="Match not found")
+    
+@app.get("/matches")
+def get_matches_endpoint():
+    return matches.all()

@@ -1,1 +1,27 @@
-<h1>Your Matches</h1>
+<div *ngIf="matches.length > 0">
+  <div class="scrollable-container">
+    <div *ngFor="let match of matches" class="match-card">
+      <mat-card>
+        <mat-card-header>
+          <div class="mat-card-header-text">
+            <ng-container *ngIf="!isEditMode(match.id); else editModeTemplate">
+              <mat-card-title class="content-padding">{{ match.name }}</mat-card-title>
+            </ng-container>
+            <ng-template #editModeTemplate>
+              <mat-form-field appearance="outline">
+                <input matInput [(ngModel)]="match.name">
+              </mat-form-field>
+            </ng-template>
+            <mat-card-subtitle class="content-padding">Compatibility: {{ match.compatibility }}</mat-card-subtitle>
+          </div>
+          <button mat-icon-button class="transparent-icon-button" (click)="toggleEditMode(match.id)">
+            <mat-icon class="icon-color">{{ isEditMode(match.id) ? 'save' : 'edit' }}</mat-icon>
+          </button>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div *ngIf="matches.length === 0">
+  <span>No matches found.</span>
+</div>
