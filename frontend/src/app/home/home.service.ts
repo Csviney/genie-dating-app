@@ -27,6 +27,10 @@ export class HomeService {
     return this.http.get<Boolean>(`http://localhost:8000/check-username/${username}`);
   }
 
+  editProfileByUsername(username: string, profile: Profile) {
+    return this.http.put<Profile>(`http://localhost:8000/profiles/username/${username}`, profile);
+  }
+
   getMatchesofProfile(profile_id: number | undefined){
     return this.http.get<Match[]>(`http://localhost:8000/matches/profile/${profile_id}`)
   }
