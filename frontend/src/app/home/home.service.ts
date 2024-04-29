@@ -42,4 +42,8 @@ export class HomeService {
   editName(id: number | undefined, newName: string){
     return this.http.put<Match>(`http://localhost:8000/matches/${id}`, { name: newName });
   }
+
+  createMatch(match: Match) {
+    return this.http.post<Match>(`http://localhost:8000/matches`, match);
+  }
 }

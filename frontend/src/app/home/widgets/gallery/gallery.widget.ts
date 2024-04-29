@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { HomeService } from '../../home.service';
-import { Profile } from '../../../models.module';
+import { Profile, Match } from '../../../models.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 
@@ -23,6 +23,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
     }
     ngOnInit(): void {
       //Load all profiles into home page on load
+      this.loggedinProfile = HomeService.loggedInUser;
       this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
         for (let p of profiles) {
           if (p.username != this.loggedinProfile.username
@@ -45,6 +46,17 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
       this.homeService.editProfileByUsername(p.username, p).subscribe((profile) => {
         console.log(profile);
       })
+      if (this.loggedinProfile.liked_by?.includes(p.username)) {
+        const new_match: Match = {
+          id: 100,
+          profile_1: this.loggedinProfile,
+          profile_2: p,
+          compatibility: '',
+          name: ''
+        }
+        console.log(new_match);
+        this.homeService.createMatch(new_match).subscribe();
+      }
       console.log(this.galleryProfiles);
     }
     trackByFn(index: number, item: Profile) {

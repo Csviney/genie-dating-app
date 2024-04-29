@@ -1,15 +1,21 @@
-<div>
-    <div class="scrollable-container">
-        <div *ngFor="let p of galleryProfiles; let i = index; trackBy: trackByFn" class="gallery-card">
-            <mat-card>
-                <mat-card-header>
-                    <div class="mat-card-header-text">
-                        <mat-card-title class="content-padding">{{p.first_name}} {{p.last_name}}</mat-card-title>
-                        <mat-card-subtitle class="content-padding">{{p.age}} years old</mat-card-subtitle>
-                    </div>
-                    <button mat-mini-fab type="button" style="background-color: #ffe9ec;" (click)="onLike(p)"><mat-icon style="color: #fe7789;">favorite</mat-icon></button>
-                </mat-card-header>
-            </mat-card>
+<div *ngIf="galleryProfiles.length > 0">
+    <div>
+        <div class="scrollable-container">
+            <div *ngFor="let p of galleryProfiles; let i = index; trackBy: trackByFn" class="gallery-card">
+                <mat-card>
+                    <mat-card-header>
+                        <div class="mat-card-header-text">
+                            <mat-card-title class="content-padding">{{p.first_name}} {{p.last_name}}</mat-card-title>
+                            <mat-card-subtitle class="content-padding">{{p.age}} years old</mat-card-subtitle>
+                        </div>
+                        <button mat-mini-fab type="button" style="background-color: #ffe9ec;" (click)="onLike(p)"><mat-icon style="color: #fe7789;">favorite</mat-icon></button>
+                    </mat-card-header>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>
+<div *ngIf="galleryProfiles.length === 0">
+    <span>Sorry, no one for you. \_(-_-)_/</span>
+</div>
+  

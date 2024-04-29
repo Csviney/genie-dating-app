@@ -6,26 +6,26 @@ import requests
 
 class Match():
     id: int
-    profile_1: int
-    profile_2: int
+    profile_1: dict
+    profile_2: dict
     compatibility: str
     name: str
 
-    def __init__(self, profile_1: int, profile_2: int):
+    def __init__(self, profile_1: dict, profile_2: dict):
         self.id = (matches.all()[-1]['id'] if matches.all() else 0) + 1
         self.profile_1 = profile_1
         self.profile_2 = profile_2
         query = Query()
-        first_name = ""
-        second_name = ""
-        first = profiles.search(query.id==profile_1)
-        if first:
-            for x in first:
-                first_name = x.get("first_name")
-        second = profiles.search(query.id==profile_2)
-        if second:
-            for x in second:
-                second_name = x.get("first_name")
+        first_name = profile_1['first_name']
+        second_name = profile_2['first_name']
+        # first = profiles.search(query.id==profile_1)
+        # if first:
+        #     for x in first:
+        #         first_name = x.get("first_name")
+        # second = profiles.search(query.id==profile_2)
+        # if second:
+        #     for x in second:
+        #         second_name = x.get("first_name")
         self.name = first_name + " + " + second_name
         url = 'https://love-calculator.p.rapidapi.com/getPercentage'
         params = {'fname': first_name, 'sname': second_name}
@@ -74,7 +74,7 @@ def update_match(id, data):
 
 def get_matches_by_profile(profile_id: int):
     query = Query()
-    matched_records = matches.search((query.profile_1 == profile_id) | (query.profile_2 == profile_id))
+    matched_records = matches.search((query.profile_1['id'] == profile_id) | (query.profile_2['id'] == profile_id))
     if matched_records:
         return matched_records
     return None
