@@ -82,15 +82,14 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     removeMatch(matchId: number): void {
       let match = this.matches.find(m => m.id === matchId);
       if (match) {
-        this.homeService.deleteMatch(match.id).subscribe();
+        this.homeService.deleteMatch(match.id).subscribe((match) => {
+          setTimeout(() => {
+            this.fetchMatches();
+          }, 150);
+          this.snackBar.open('Match Deleted!', '', {
+               duration: 2000
+            });
+        });
       }
-      // this.snackBar.open('Match Deleted! Refresh Page', '', {
-      //   duration: 2000
-      // });
-      // this.matches = this.matches.filter((m) => {m !== match})
-      // setTimeout(() => {
-      //   this.fetchMatches();
-      // }, 150);
-      // this.matches.filter((m) => {return m != match});
   }
 }

@@ -81,7 +81,7 @@ def get_match_endpoint(id: int):
     match = get_match(id)
     print(match)
     if match:
-        return match
+        return reformat_matches([match])[0]
     else:
         raise HTTPException(status_code=404, detail="Match not found")
     
@@ -105,10 +105,17 @@ def update_match_endpoint(id: int, data: dict):
 def get_matches_from_profile_endpoint(profile_id: int):
     matches = get_matches_by_profile(profile_id)
     if matches:
-        return matches
+        return reformat_matches(matches)
     else:
-        raise HTTPException(status_code=404, detail="Match not found")
+        return []
+    #     raise HTTPException(status_code=404, detail="Match not found")
     
 @app.get("/matches")
 def get_matches_endpoint():
-    return matches.all()
+    all_matches = matches.all()
+    return reformat_matches(all_matches)
+
+def reformat_matches(raw_matches):
+    for match in raw_matches:
+        match['id'] = match.doc_id
+    return raw_matches
