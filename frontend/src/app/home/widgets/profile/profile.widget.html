@@ -7,18 +7,22 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Gender</mat-label>
                     <mat-select [(ngModel)]="loggedinProfile.gender" name="gender">
-                        <mat-option value="man">man</mat-option>
-                        <mat-option value="woman">woman</mat-option>
-                        <mat-option value="non-binary">non-binary</mat-option>
+                        <mat-option value="man">Man</mat-option>
+                        <mat-option value="woman">Woman</mat-option>
+                        <mat-option value="nonbinary">Nonbinary</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Preferences</mat-label>
                     <mat-select [(ngModel)]="loggedinProfile.preferences" name="preferences" multiple>
-                        <mat-option value="man">man</mat-option>
-                        <mat-option value="woman">woman</mat-option>
-                        <mat-option value="non-binary">non-binary</mat-option>
+                        <mat-option value="man">Man</mat-option>
+                        <mat-option value="woman">Woman</mat-option>
+                        <mat-option value="nonbinary">Nonbinary</mat-option>
                     </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Bio</mat-label>
+                    <textarea matInput [(ngModel)]="loggedinProfile.bio" name="bio"></textarea>
                 </mat-form-field>
                 <button mat-icon-button class="transparent-icon-button" *ngIf="isEditMode('name')" (click)="saveChanges(); toggleEditMode('name')">
                     <mat-icon class="icon-color">save</mat-icon>
@@ -40,6 +44,7 @@
                   </ng-container>
                 </ng-container>
               </p>
+            <p>Bio: {{ loggedinProfile.bio }}</p>
             <button mat-icon-button class="transparent-icon-button" *ngIf="!isEditMode('name')" (click)="toggleEditMode('name')">
                 <mat-icon class="icon-color">edit</mat-icon>
             </button>

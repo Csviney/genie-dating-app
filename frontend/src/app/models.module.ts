@@ -9,6 +9,7 @@ export interface Profile {
     gender: string;
     preferences: string[] | null;
     liked_by?: string[] | null;
+    bio: string;
 }
 
 export interface Match {

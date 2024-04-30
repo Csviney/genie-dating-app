@@ -53,6 +53,14 @@
       </mat-form-field>
     </div>
 
+    <div class="form-row">
+      <span class="form-label">Bio:</span>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Bio</mat-label>
+        <input matInput type="bio" placeholder="Bio" formControlName="bio">
+      </mat-form-field>
+    </div>
+
     <h3>Select Your Preferences:</h3>
       <mat-checkbox value="man" (change)="onCheckboxChange($event)">Man</mat-checkbox>
       <mat-checkbox value="woman" (change)="onCheckboxChange($event)">Woman</mat-checkbox>
