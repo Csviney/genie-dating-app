@@ -1,1 +1,1 @@
-{"profiles": {"1": {"id": 1, "username": "az", "password": "1", "first_name": "adela", "last_name": "zhang", "age": 20, "gender": "", "preferences": [], "liked_by": []}}}
+{"profiles": {"3": {"id": 3, "username": "g", "password": "", "first_name": "", "last_name": "", "age": 0, "gender": "man", "preferences": ["man"], "liked_by": [], "bio": ""}}}

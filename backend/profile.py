@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from pydantic import BaseModel
 from db import profiles
 from tinydb import TinyDB, Query
@@ -12,8 +13,9 @@ class Profile():
     gender: str
     preferences: [str]
     liked_by: [int]
+    bio: str
 
-    def __init__(self, username: str, password: str, first_name: str, last_name: str, age: int, gender: str, preferences: [str]):
+    def __init__(self, username: str, password: str, first_name: str, last_name: str, age: int, gender: str, preferences: [str], bio: str):
         self.id = (profiles.all()[-1]['id'] if profiles.all() else 0) + 1
         self.username = username
         self.password = password
@@ -23,12 +25,13 @@ class Profile():
         self.gender = gender
         self.preferences = preferences
         self.liked_by = []
+        self.bio = bio
 
     def to_dict(self):
-        return {"id": self.id, "username": self.username, "password": self.password, "first_name": self.first_name, "last_name": self.last_name, "age": self.age, "gender": self.gender, "preferences": self.preferences, "liked_by": self.liked_by}
+        return {"id": self.id, "username": self.username, "password": self.password, "first_name": self.first_name, "last_name": self.last_name, "age": self.age, "gender": self.gender, "preferences": self.preferences, "liked_by": self.liked_by, "bio": self.bio}
 
 def create(data):
-    profile = Profile(data.get("username"), data.get("password"), data.get("first_name"), data.get("last_name"), data.get("age"), data.get("gender"), data.get("preferences") )
+    profile = Profile(data.get("username"), data.get("password"), data.get("first_name"), data.get("last_name"), data.get("age"), data.get("gender"), data.get("preferences"), data.get("bio"))
     profiles.insert(profile.to_dict())
     return profile.to_dict()
 
@@ -45,12 +48,28 @@ def delete(id):
         return profile
     return None
 
+def delete_by_username(username):
+    User = Query()
+    result = profiles.remove(User.username == username)
+    if result:
+        return {"message": "Profile deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
 def update(id, data):
     profile = profiles.get(doc_id=id)
     profile_id = Query()
     if profile:
         profiles.update(data, profile_id.id == id)
         return profile
+    return None
+
+def update_by_username(username, data):
+    User = Query()
+    result = profiles.search(User.username == username)
+    if result:
+        profiles.update(data, User.username == username)
+        return result
     return None
 
 def get_by_username(username):

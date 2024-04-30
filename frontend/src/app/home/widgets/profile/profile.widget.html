@@ -1,1 +1,57 @@
-<h1>Your Profile</h1>
+<mat-card class="profile-card custom-card" *ngIf="loggedinProfile">
+    <mat-card-header>
+        <mat-card-title>
+            <!-- Template for edit mode -->
+            <ng-template #editNameTemplate>
+                <!-- Empty template to prevent editing first and last names -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Gender</mat-label>
+                    <mat-select [(ngModel)]="loggedinProfile.gender" name="gender">
+                        <mat-option value="man">Man</mat-option>
+                        <mat-option value="woman">Woman</mat-option>
+                        <mat-option value="nonbinary">Nonbinary</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Preferences</mat-label>
+                    <mat-select [(ngModel)]="loggedinProfile.preferences" name="preferences" multiple>
+                        <mat-option value="man">Man</mat-option>
+                        <mat-option value="woman">Woman</mat-option>
+                        <mat-option value="nonbinary">Nonbinary</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Bio</mat-label>
+                    <textarea matInput [(ngModel)]="loggedinProfile.bio" name="bio"></textarea>
+                </mat-form-field>
+                <button mat-icon-button class="transparent-icon-button" *ngIf="isEditMode('name')" (click)="saveChanges(); toggleEditMode('name')">
+                    <mat-icon class="icon-color">save</mat-icon>
+                </button>
+            </ng-template>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <ng-container *ngIf="!isEditMode('name'); else editNameTemplate">
+            <mat-card-title>{{ loggedinProfile.first_name }} {{ loggedinProfile.last_name }}</mat-card-title>
+            <mat-card-subtitle>{{ loggedinProfile.username }}</mat-card-subtitle>
+            <p>Age: {{ loggedinProfile.age }}</p>
+            <p>Gender: {{ loggedinProfile.gender }}</p>
+            <p>Preferences:
+                <ng-container *ngIf="loggedinProfile.preferences">
+                  <ng-container *ngFor="let preference of loggedinProfile.preferences; let last = last">
+                    {{ preference }}
+                    <span *ngIf="!last"></span> <!-- Add comma and space if not last item -->
+                  </ng-container>
+                </ng-container>
+              </p>
+            <p>Bio: {{ loggedinProfile.bio }}</p>
+            <button mat-icon-button class="transparent-icon-button" *ngIf="!isEditMode('name')" (click)="toggleEditMode('name')">
+                <mat-icon class="icon-color">edit</mat-icon>
+            </button>
+                    <!-- Delete profile button -->
+        <button mat-icon-button class="transparent-icon-button" (click)="deleteProfile()">
+            <mat-icon class="icon-color">delete</mat-icon>
+        </button>
+        </ng-container>
+    </mat-card-content>
+</mat-card>

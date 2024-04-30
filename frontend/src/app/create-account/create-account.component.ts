@@ -30,7 +30,8 @@ export class CreateAccountComponent {
     password: [''],
     age: [null],
     gender: [''],
-    preferences: this.formBuilder.array([])
+    preferences: this.formBuilder.array([]),
+    bio: ['']
   });
 
   constructor(private router: Router, private formBuilder: FormBuilder, 
@@ -67,14 +68,18 @@ export class CreateAccountComponent {
         age: formValue.age ?? 0,
         gender: formValue.gender as string,
         preferences: formValue.preferences as string[],
-        liked_by: []
+        liked_by: [],
+        bio: formValue.bio || ''
       };
     
       this.homeService.create(profileData).subscribe({
         next: (response) => {
           console.log('Profile created:', response);
           HomeService.loggedInUser = response;
-          this.router.navigate(['/home']);
+          this.router.navigateByUrl('/').then(() => {
+            // Force a reload of the page
+            window.location.reload();
+          });
         },
         error: (error) => {
           console.error('Error creating profile:', error);
