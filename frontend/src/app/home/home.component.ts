@@ -32,10 +32,11 @@ export class HomeComponent implements OnInit{
     //   console.log('GETTING PROFILE FROM SESSION HOME PAGE', profile)
     //   this.loggedinProfile = profile;
     // })
-    this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
-      this.allProfiles = profiles;
-      console.log(this.allProfiles);
-    });
+    
+    // this.homeService.getAllProfiles().subscribe((profiles: Profile[]) => {
+    //   this.allProfiles = profiles;
+    //   console.log(this.allProfiles);
+    // });
   }
 
   onClick() {

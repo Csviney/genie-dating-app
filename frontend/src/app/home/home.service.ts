@@ -8,6 +8,7 @@ import { Profile, Match } from '../models.module';
 export class HomeService {
 
   public static loggedInUser: any = null;
+  // public static matches: [];
 
   constructor(protected http: HttpClient) {}
 
@@ -63,5 +64,17 @@ export class HomeService {
   getProfileById2(id: number | null) {
     //Copied method that allows getProfileID() method as an arg.
     return this.http.get<Profile>(`http://localhost:8000/profiles/${id}`)
+  }
+
+  deleteMatch(match_id: number | null){
+    return this.http.delete<Match>(`http://localhost:8000/matches/${match_id}`)
+  }
+
+  getMatch(match_id: number | null){
+    return this.http.get<Match>(`http://localhost:8000/matches/${match_id}`)
+  }
+
+  getAllMatches(){
+    return this.http.get<Match[]>('http://localhost:8000/matches')
   }
 }

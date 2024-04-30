@@ -17,6 +17,7 @@
           <button mat-icon-button class="transparent-icon-button" (click)="toggleEditMode(match.id)">
             <mat-icon class="icon-color">{{ isEditMode(match.id) ? 'save' : 'edit' }}</mat-icon>
           </button>
+          <button mat-mini-fab type="button" class="transparent-icon-button" (click)="removeMatch(match.id)"><mat-icon style="color: #fe7789;">delete</mat-icon></button>
         </mat-card-header>
       </mat-card>
     </div>

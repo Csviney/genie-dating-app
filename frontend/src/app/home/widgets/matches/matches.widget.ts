@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 
@@ -25,40 +26,35 @@ import { MatInputModule } from '@angular/material/input';
     matches: Match[] = [];
     editingStates: { [matchId: number]: boolean } = {};
   
-    constructor(private homeService: HomeService) {
+    constructor(private homeService: HomeService,
+      public snackBar: MatSnackBar) {
       this.loggedinProfile = HomeService.loggedInUser as Profile;
     }
   
     ngOnInit(): void {
       const profileId = this.homeService.getProfileId();
       if (profileId) {
-          this.homeService.getProfileById(profileId).subscribe({
-              next: (profile) => {
+          this.homeService.getProfileById(profileId).subscribe(
+                  (profile) => {
                   this.loggedinProfile = profile;
                   console.log('GETTING PROFILE FROM SESSION MATCHES WIDGET', profile);
                   this.fetchMatches();
               },
-              error: (error) => {
-                  console.error('Error fetching profile', error);
-              }
-          });
-      } else {
-          console.error("No profile ID found in session storage");
-      }
+              // error: (error) => {
+              //     console.error('Error fetching profile', error);
+              // }
+          );
+        }
+      // } else {
+      //     console.error("No profile ID found in session storage");
+      // }
     }
 
     fetchMatches(): void {
       if (this.loggedinProfile) {
-          this.homeService.getMatchesofProfile(this.loggedinProfile.id).subscribe({
-              next: (matches) => {
-                  this.matches = matches;
-                  console.log('logged ID,', this.loggedinProfile!.id);
-                  console.log('matches in observable,', matches);
-              },
-              error: (error) => {
-                  console.error('Error fetching matches', error);
-              }
-          });
+          this.homeService.getMatchesofProfile(this.loggedinProfile.id).subscribe((matches) => {
+            this.matches = matches
+          })
       }
     }
     
@@ -79,8 +75,22 @@ import { MatInputModule } from '@angular/material/input';
       this.editingStates[matchId] = !this.editingStates[matchId];
     }
     
-  
     isEditMode(matchId: number): boolean {
       return !!this.editingStates[matchId];
     }
+
+    removeMatch(matchId: number): void {
+      let match = this.matches.find(m => m.id === matchId);
+      if (match) {
+        this.homeService.deleteMatch(match.id).subscribe();
+      }
+      this.snackBar.open('Match Deleted! Refresh Page', '', {
+        duration: 2000
+      });
+      // this.matches = this.matches.filter((m) => {m !== match})
+      // setTimeout(() => {
+      //   this.fetchMatches();
+      // }, 150);
+      // this.matches.filter((m) => {return m != match});
   }
+}

@@ -79,6 +79,7 @@ def create_match_endpoint(data: dict):
 @app.get("/matches/{id}")
 def get_match_endpoint(id: int):
     match = get_match(id)
+    print(match)
     if match:
         return match
     else:
