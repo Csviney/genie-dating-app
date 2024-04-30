@@ -32,6 +32,14 @@ export class HomeService {
     return this.http.put<Profile>(`http://localhost:8000/profiles/username/${username}`, profile);
   }
 
+  deleteProfile(username: string) {
+    return this.http.delete(`http://localhost:8000/profiles/${username}`);
+  }
+
+  // deleteProfile(id: number){
+  //   return this.http.delete<Profile>(`http://localhost:8000/profile/${id}`)
+  // }
+
   getMatchesofProfile(profile_id: number | undefined){
     return this.http.get<Match[]>(`http://localhost:8000/matches/profile/${profile_id}`)
   }

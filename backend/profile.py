@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from pydantic import BaseModel
 from db import profiles
 from tinydb import TinyDB, Query
@@ -46,6 +47,14 @@ def delete(id):
         profiles.remove(doc_ids=[id])
         return profile
     return None
+
+def delete_by_username(username):
+    User = Query()
+    result = profiles.remove(User.username == username)
+    if result:
+        return {"message": "Profile deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Profile not found")
 
 def update(id, data):
     profile = profiles.get(doc_id=id)

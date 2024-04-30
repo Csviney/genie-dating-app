@@ -48,6 +48,10 @@
             <button mat-icon-button class="transparent-icon-button" *ngIf="!isEditMode('name')" (click)="toggleEditMode('name')">
                 <mat-icon class="icon-color">edit</mat-icon>
             </button>
+                    <!-- Delete profile button -->
+        <button mat-icon-button class="transparent-icon-button" (click)="deleteProfile()">
+            <mat-icon class="icon-color">delete</mat-icon>
+        </button>
         </ng-container>
     </mat-card-content>
 </mat-card>

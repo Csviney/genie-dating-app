@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
+
 
 @Component({
     selector: 'profile',
@@ -36,11 +38,12 @@ import { MatSelectModule } from '@angular/material/select';
     preferencesString: string = '';
     editingStates: { [field: string]: boolean } = {};
   
-    constructor(private homeService: HomeService, private http: HttpClient) {
+    constructor(private homeService: HomeService, private http: HttpClient, private router: Router) {
       this.loggedinProfile = HomeService.loggedInUser;
     }
   
     ngOnInit(): void {
+      console.log("hit")
       const profileId = this.homeService.getProfileId();
       if (profileId) {
         this.homeService.getProfileById(profileId).subscribe((profile) => {
@@ -74,19 +77,18 @@ import { MatSelectModule } from '@angular/material/select';
       this.homeService.editProfileByUsername(this.loggedinProfile.username, this.loggedinProfile).subscribe((profile) => {
         console.log(profile);
       })
-    
-      // Send updated profile to backend
-      // this.http.put<Profile>(`/profiles/${this.loggedinProfile.username}`, this.loggedinProfile)
-      //   .pipe(
-      //     catchError(error => {
-      //       console.error('Error updating profile:', error);
-      //       return throwError(error);
-      //     })
-      //   )
-      //   .subscribe((updatedProfile: Profile) => {
-      //     console.log('Profile updated successfully:', updatedProfile);
-      //     // Optionally, update local data after successful update
-      //     this.loggedinProfile = updatedProfile;
-      //   });
     }
+
+    deleteProfile(): void {
+      if (confirm('Are you sure you want to delete your profile?')) {
+          this.homeService.deleteProfile(this.loggedinProfile.username).subscribe((profile) => {
+              console.log(profile);
+          })
+      }
+      this.router.navigateByUrl('/').then(() => {
+        // Force a reload of the page
+        window.location.reload();
+      });
+    }
+    
   }
