@@ -1,0 +1,33 @@
+.custom-card {
+    background-color: white; /* Set background color to white */
+    border-color: #FFE9EC; /* Set border color to pink */
+    border-width: 1px; /* Optionally adjust border width */
+    border-style:solid; /* Optionally adjust border style */
+}
+  
+  .mat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+  }
+  
+  .mat-card-header-text {
+    flex-grow: 1; 
+  }
+  
+  .transparent-icon-button {
+    background-color: transparent !important; 
+    color: inherit;                          
+    box-shadow: none !important;             
+    border: none !important;
+    padding-bottom: 15px;           
+  }
+  
+  .icon-color {
+    color: #fe7789
+  }
+  
+  .content-padding {
+    padding-bottom: 10px;
+  }
