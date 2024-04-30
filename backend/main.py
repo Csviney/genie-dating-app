@@ -19,7 +19,7 @@ app.add_middleware(
 
 @app.get("/profiles")
 def get_profiles():
-    return profiles.all()
+    return reformat_profiles(profiles.all())
 
 @app.post("/profiles")
 def create_profile(data: dict):
@@ -30,7 +30,7 @@ def create_profile(data: dict):
 def get_profile(id: int):
     profile = get(id)
     if profile:
-        return profile
+        return reformat_profiles([profile])[0]
     else:
         raise HTTPException(status_code=404, detail="Profile not found")
     
@@ -38,7 +38,7 @@ def get_profile(id: int):
 def get_profile_by_username(username: str):
     profile = get_by_username(username)
     if profile:
-        return profile
+        return reformat_profiles([profile])[0]
     else:
         raise HTTPException(status_code=404, detail="Profile not found")
 
@@ -128,3 +128,8 @@ def reformat_matches(raw_matches):
     for match in raw_matches:
         match['id'] = match.doc_id
     return raw_matches
+
+def reformat_profiles(raw_profiles):
+    for profile in raw_profiles:
+        profile['id'] = profile.doc_id
+    return raw_profiles
