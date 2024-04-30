@@ -7,3 +7,11 @@ After creating their *Profile* and receiving *Matches*, Users can edit their own
 [Link to Demo](input link here!)
 
 **Genie** was created using Angular and TinyDB.
+
+To begin:
+1. `cd ./frontend`
+2. `npm install`
+3. `cd ../backend`
+4. `pip install -r requirements.txt`
+3. `pip install tinydb`
+4. `pip install requests`
