@@ -84,9 +84,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
       if (match) {
         this.homeService.deleteMatch(match.id).subscribe();
       }
-      this.snackBar.open('Match Deleted! Refresh Page', '', {
-        duration: 2000
-      });
+      // this.snackBar.open('Match Deleted! Refresh Page', '', {
+      //   duration: 2000
+      // });
       // this.matches = this.matches.filter((m) => {m !== match})
       // setTimeout(() => {
       //   this.fetchMatches();
