@@ -57,6 +57,7 @@ def create_match(data):
     return match.to_dict()
 
 def get_match(id):
+    print("id in service fn", id)
     match = matches.get(doc_id=id)
     if match:
         return match
