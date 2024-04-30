@@ -7,12 +7,13 @@ import { HomeService } from '../home/home.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Profile, Match } from '../models.module';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  imports: [MatCardModule, HttpClientModule, ProfileWidget, Gallery, Matches],
+  imports: [MatCardModule, HttpClientModule, ProfileWidget, Gallery, Matches, MatButtonModule],
   providers: [HomeService],
   standalone: true
 })
